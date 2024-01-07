@@ -3,7 +3,7 @@ public class App {
         World world = new World();
         world.initializeAnthills();
         world.initializeVertices(30);
-        world.initializeLarveas(10);
+        world.initializeLarvaes(10);
         world.initializeAnts(10);
         world.run();
     }

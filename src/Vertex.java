@@ -10,7 +10,7 @@ public class Vertex {
     private Point point;
     private double difficulty;
     private ArrayList<Vertex> neighbours = new ArrayList<Vertex>();
-    private ArrayList<Larvea> larveas = new ArrayList<Larvea>();
+    private ArrayList<Larvae> larvaes = new ArrayList<Larvae>();
     private JLayeredPane layeredPane;
 
     protected Vertex(Point point, JLayeredPane layeredPane) {
@@ -19,9 +19,9 @@ public class Vertex {
         this.difficulty = Math.random() * 2 + 1;
     }
 
-    protected void addLarvea() {
-        synchronized(larveas) {
-            larveas.add(new Larvea(randomPointInVertex(), layeredPane));
+    protected void addLarvae() {
+        synchronized(larvaes) {
+            larvaes.add(new Larvae(randomPointInVertex(), layeredPane));
         }
     }
 

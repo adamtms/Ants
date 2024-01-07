@@ -99,10 +99,10 @@ public class World {
             }
         }
     }
-    public void initializeLarveas(int numLarveas) {
-        for (int i = 0; i < numLarveas; i++) {
+    public void initializeLarvaes(int numLarvaes) {
+        for (int i = 0; i < numLarvaes; i++) {
             Vertex vertex = vertices.get(Utils.random.nextInt(2, vertices.size()));
-            vertex.addLarvea();
+            vertex.addLarvae();
         }
     }
 
@@ -138,7 +138,7 @@ public class World {
         Vertex vertex;
         while(true){
             vertex = vertices.get(Utils.random.nextInt(2, vertices.size()));
-            vertex.addLarvea();
+            vertex.addLarvae();
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
