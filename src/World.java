@@ -15,6 +15,7 @@ public class World {
     private BlueAnthill blueAnthill;
     private RedAnthill redAnthill;
     private ArrayList<Vertex> vertices = new ArrayList<Vertex>();
+    private ArrayList<Ant> ants = new ArrayList<Ant>();
     
     public World() {
         frame = new JFrame("Ants simulation");
@@ -105,10 +106,31 @@ public class World {
         }
     }
 
-    public void initializeAnts(int numAnts) {
+    public void initializeBlueAnts(int numAnts) {
+        if (blueAnthill == null) {
+            System.out.println("Blue anthill not initialized");
+            return;
+        }
         for (int i = 0; i < numAnts; i++) {
-            Anthill anthill = Utils.random.nextInt(0, 2) == 0 ? blueAnthill : redAnthill;
-            new Ant(anthill, layeredPane).execute();
+            ants.add(new BlueAnt(blueAnthill, layeredPane));
+        }
+    }
+
+    public void initializeRedAnts(int numAnts) {
+        if (redAnthill == null) {
+            System.out.println("Blue anthill not initialized");
+            return;
+        }
+        for (int i = 0; i < numAnts; i++) {
+            ants.add(new RedAnt(redAnthill, layeredPane));
+        }
+    }
+
+    public void initializeAnts(int numAnts) {
+        initializeRedAnts(numAnts);
+        initializeBlueAnts(numAnts);
+        for (Ant ant : ants) {
+            ant.start();
         }
     }
 

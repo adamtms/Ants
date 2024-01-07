@@ -9,7 +9,7 @@ public class Stone extends Vertex{
     private static ImageIcon vertexImage = Utils.getScaledImage(imagePath, size);
     Stone(Point point, JLayeredPane layeredPane) {
         super(point, layeredPane);
-        setDifficulty(10);
+        setDifficulty(4);
     }
 
     protected void draw() {

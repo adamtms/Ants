@@ -1,5 +1,4 @@
 import java.awt.Point;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -7,7 +6,7 @@ import javax.swing.JLayeredPane;
 public class RedAnthill extends Anthill{
     private static String imagePath = "images/RedAnthill.png";
     private static ImageIcon vertexImage = Utils.getScaledImage(imagePath, size);
-    RedAnthill(Point point, JLayeredPane layeredPane) {
+    protected RedAnthill(Point point, JLayeredPane layeredPane) {
         super(point, layeredPane);
     }
     

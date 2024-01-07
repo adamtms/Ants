@@ -8,7 +8,7 @@ public class Vertex {
     protected static int radius = size / 2;
     private static ImageIcon vertexImage = Utils.getScaledImage(imagePath, size);
     private Point point;
-    private int difficulty;
+    private double difficulty;
     private ArrayList<Vertex> neighbours = new ArrayList<Vertex>();
     private ArrayList<Larvea> larveas = new ArrayList<Larvea>();
     private JLayeredPane layeredPane;
@@ -16,7 +16,7 @@ public class Vertex {
     protected Vertex(Point point, JLayeredPane layeredPane) {
         this.point = point;
         this.layeredPane = layeredPane;
-        this.difficulty = Utils.random.nextInt(5) + 1;
+        this.difficulty = Math.random() * 2 + 1;
     }
 
     protected void addLarvea() {
@@ -38,7 +38,7 @@ public class Vertex {
     }
 
     protected Point randomPointInVertex() {
-        double r = (radius - 10) * Math.sqrt(Math.random());
+        double r = (radius - 20) * Math.sqrt(Math.random());
         double theta = Math.random() * 2 * Math.PI;
         return new Point((int) (r * Math.cos(theta)) + point.x, 
                         (int) (r * Math.sin(theta)) + point.y);
@@ -52,7 +52,7 @@ public class Vertex {
         return point;
     }
 
-    protected int getDifficulty() {
+    protected double getDifficulty() {
         return difficulty;
     }
 

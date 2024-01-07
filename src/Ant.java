@@ -2,45 +2,85 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Ant extends SwingWorker<Void, Void> {
+public abstract class Ant extends Thread {
     private static String imagePath = "images/RedAnt.png";
     private static ImageIcon antImage = new ImageIcon(imagePath);;
     private static int size = antImage.getIconWidth();
     private JPanel antPanel;
     private ArrayList<Vertex> path;
+    private int strength;
+    private Integer health;
+    private Object healthLock = new Object();
+    private boolean alive = true;
 
     protected Ant(Anthill anthill, JLayeredPane layeredPane) {
         this.antPanel = new JPanel();
         this.antPanel.setSize(size, size);
         this.antPanel.setOpaque(false);
-        JLabel antLabel = new JLabel(antImage);
-        antLabel.setBounds(0, 0, size, size);
-        this.antPanel.add(antLabel);
         this.path = new ArrayList<Vertex>();
         this.path.add(anthill);
         layeredPane.add(antPanel, Integer.valueOf(2));
-        
+
+        Point randomPoint = anthill.randomPointInVertex();
+        randomPoint.x -= size / 2;
+        randomPoint.y -= size / 2;
+        antPanel.setLocation(randomPoint);
+        this.strength = Utils.random.nextInt(1, 5);
+        this.health = Utils.random.nextInt(10, 15);
     }
 
-    @Override
-    protected Void doInBackground() throws Exception {
-        Point currentCoordinate = antPanel.getLocation();
+    private void die() {
+        alive = false;
+    }
 
-        while (!isCancelled()) {
-            Vertex nextVertex = path.getLast().getRandomNeighbour();
-            Point nextCoordinate = nextVertex.randomPointInVertex();
-            nextCoordinate.x -= size / 2;
-            nextCoordinate.y -= size / 2;
-            smoothMove(currentCoordinate, nextCoordinate);
-            currentCoordinate = nextCoordinate;
+    protected void receiveDamage(int damage) {
+        synchronized (healthLock) {
+            health -= damage;
+            if (health <= 0) {
+                die();
+            }
+        }
+
+    }
+
+    protected int getStrength() {
+        return strength;
+    }
+
+    protected JPanel getPanel() {
+        return antPanel;
+    }
+
+    private Vertex currentVertex() {
+        return path.getLast();
+    }
+
+    protected void sleep(int duration){
+        try {
+            Thread.sleep(duration);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void run() {
+        while (alive) {
+            Vertex currentVertex = currentVertex();
+            Vertex nextVertex = currentVertex.getRandomNeighbour();
+            smoothMove(nextVertex);
             path.add(nextVertex);
         }
-        return null;
     }
 
-    private void smoothMove(Point start, Point end) {
-        int steps = 10;
-        int delay = 50; // Delay between each step in milliseconds
+    private void smoothMove(Vertex nextVertex) {
+        int steps = (int) (10 * nextVertex.getDifficulty() * currentVertex().distance(nextVertex) / Vertex.size);
+        int delay = 40; // Delay between each step in milliseconds
+
+        Point start = antPanel.getLocation();
+        Point end = nextVertex.randomPointInVertex();
+
+        end.x -= size / 2;
+        end.y -= size / 2;
 
         int dx = (end.x - start.x) / steps;
         int dy = (end.y - start.y) / steps;
@@ -49,11 +89,7 @@ public class Ant extends SwingWorker<Void, Void> {
             int x = start.x + dx * i;
             int y = start.y + dy * i;
             antPanel.setLocation(x, y);
-            try {
-                Thread.sleep(delay);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            sleep(delay);
         }
     }
 }
