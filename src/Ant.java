@@ -9,7 +9,7 @@ public class Ant extends SwingWorker<Void, Void> {
     private JPanel antPanel;
     private ArrayList<Vertex> path;
 
-    public Ant(Anthill anthill, JLayeredPane layeredPane) {
+    protected Ant(Anthill anthill, JLayeredPane layeredPane) {
         this.antPanel = new JPanel();
         this.antPanel.setSize(size, size);
         this.antPanel.setOpaque(false);

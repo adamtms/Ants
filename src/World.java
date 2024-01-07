@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.awt.Point;
 
 public class World {
+    private static String imagePath = "images/grass.jpeg";
     private JFrame frame;
     private JLayeredPane layeredPane;
     static int width = 1200;
@@ -24,7 +25,6 @@ public class World {
         layeredPane.setPreferredSize(new Dimension(width, height));
 
         // Set background image
-        String imagePath = "images/grass.jpeg";
         File imageFile = new File(imagePath);
         if (imageFile.exists()) {
             ImageIcon backgroundImage = new ImageIcon(imagePath);

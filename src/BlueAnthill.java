@@ -4,14 +4,14 @@ import javax.swing.JLayeredPane;
 import java.awt.Point;
 
 public class BlueAnthill extends Anthill{
-    static String imagePath = "images/BlueAnthill.png";
-    static ImageIcon vertexImage = Utils.getScaledImage(imagePath, size);
+    private static String imagePath = "images/BlueAnthill.png";
+    private static ImageIcon vertexImage = Utils.getScaledImage(imagePath, size);
 
-    BlueAnthill(Point point, JLayeredPane layeredPane) {
+    protected BlueAnthill(Point point, JLayeredPane layeredPane) {
         super(point, layeredPane);
     }
     
-    public void draw() {
+    protected void draw() {
         JLabel vertexLabel = new JLabel(vertexImage);
         Point point = getPoint();
         vertexLabel.setBounds(point.x - radius, point.y - radius, size, size);
