@@ -112,7 +112,7 @@ public class World {
             return;
         }
         for (int i = 0; i < numAnts; i++) {
-            ants.add(new BlueAnt(blueAnthill, layeredPane));
+            ants.add(new Drone(blueAnthill, layeredPane));
         }
     }
 

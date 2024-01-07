@@ -9,8 +9,7 @@ public abstract class Ant extends Thread {
     private JPanel antPanel;
     private ArrayList<Vertex> path;
     private int strength;
-    private Integer health;
-    private Object healthLock = new Object();
+    private int health;
     private boolean alive = true;
 
     protected Ant(Anthill anthill, JLayeredPane layeredPane) {
@@ -24,23 +23,26 @@ public abstract class Ant extends Thread {
         Point randomPoint = anthill.randomPointInVertex();
         randomPoint.x -= size / 2;
         randomPoint.y -= size / 2;
-        antPanel.setLocation(randomPoint);
+        this.antPanel.setLocation(randomPoint);
         this.strength = Utils.random.nextInt(1, 5);
         this.health = Utils.random.nextInt(10, 15);
     }
 
-    private void die() {
+    protected void die() {
         alive = false;
+        antPanel.setBounds(0,0,0,0);
     }
 
-    protected void receiveDamage(int damage) {
-        synchronized (healthLock) {
+    protected boolean receiveDamage(int damage) {
+        boolean died = false;
+        synchronized (this) {
             health -= damage;
             if (health <= 0) {
                 die();
+                died = true;
             }
         }
-
+        return died;
     }
 
     protected int getStrength() {
@@ -64,7 +66,12 @@ public abstract class Ant extends Thread {
     }
 
     public void run() {
-        while (alive) {
+        while (true) {
+            synchronized (this) {
+                if (!alive) {
+                    break;
+                }
+            }
             Vertex currentVertex = currentVertex();
             Vertex nextVertex = currentVertex.getRandomNeighbour();
             smoothMove(nextVertex);
