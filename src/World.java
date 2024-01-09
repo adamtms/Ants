@@ -127,8 +127,12 @@ public class World {
             System.out.println("Blue anthill not initialized");
             return;
         }
+        double randomValue;
         for (int i = 0; i < numAnts; i++) {
-            ants.add(new RedAnt(redAnthill, layeredPane));
+            randomValue = Math.random();
+            if (randomValue <= 1) {
+                ants.add(new Soldier(redAnthill, layeredPane));
+            } 
         }
     }
 

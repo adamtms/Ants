@@ -11,6 +11,7 @@ public abstract class Ant extends Thread {
     private int strength;
     private int health;
     private boolean alive = true;
+    private String name;
 
     protected Ant(Anthill anthill, JLayeredPane layeredPane) {
         this.antPanel = new JPanel();
@@ -26,19 +27,25 @@ public abstract class Ant extends Thread {
         this.antPanel.setLocation(randomPoint);
         this.strength = Utils.random.nextInt(1, 5);
         this.health = Utils.random.nextInt(10, 15);
+        this.name = Utils.randomName();
 
         anthill.addAnt(this);
+    }
+
+    protected String getAntName() {
+        return name;
     }
 
     protected void die() {
         alive = false;
         antPanel.setBounds(0,0,0,0);
+        System.out.println(name + " has died");
     }
 
     protected boolean receiveDamage(int damage) {
         boolean died = false;
         synchronized (this) {
-            System.out.println("Ant received " + damage + " damage");
+            System.out.println(name + " received " + damage + " damage");
             health -= damage;
             if (health <= 0) {
                 die();

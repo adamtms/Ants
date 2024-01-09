@@ -21,6 +21,7 @@ public class Worker extends BlueAnt implements Attacking, TakingLarvae{
         pickaxeLabel.setBounds(32, 24, pickaxeImage.getIconWidth(), pickaxeImage.getIconHeight());
         getPanel().add(pickaxeLabel);
         getPanel().setComponentZOrder(pickaxeLabel, 0);
+        receiveDamage(-3); //workers should be more tanky
     }
 
     protected void doAction(){
@@ -43,7 +44,7 @@ public class Worker extends BlueAnt implements Attacking, TakingLarvae{
             }
         }
         if (attacked) {
-            sleep(100);
+            sleep(140);
             return;
         }
         super.doAction();
