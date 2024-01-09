@@ -68,4 +68,15 @@ public class Worker extends BlueAnt implements Attacking, TakingLarvae{
         getPanel().setComponentZOrder(larvaeLabel, 0);
         return true;
     }
+
+    @Override
+    protected void die() {
+        synchronized (currentVertex().getLarvaeLock()) {
+            for (Larvae larvae : larvaes) {
+                getPanel().remove(larvae.getLabel());
+                currentVertex().putLarvae(larvae);
+            }
+        }
+        super.die();
+    }
 }

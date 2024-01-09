@@ -31,7 +31,9 @@ public class Vertex {
         synchronized(larvaeLock) {
             larvaes.add(larvae);
         }
-
+        Point point = randomPointInVertex();
+        larvae.getLabel().setBounds(point.x - size / 2 , point.y - size / 2, size, size);
+        layeredPane.add(larvae.getLabel(), Integer.valueOf(1));
     }
 
     protected void draw() {
