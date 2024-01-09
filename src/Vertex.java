@@ -11,6 +11,8 @@ public class Vertex {
     private double difficulty;
     private ArrayList<Vertex> neighbours = new ArrayList<Vertex>();
     private ArrayList<Larvae> larvaes = new ArrayList<Larvae>();
+    private Object larvaeLock = new Object();
+    private ArrayList<Ant> ants = new ArrayList<Ant>();
     private JLayeredPane layeredPane;
 
     protected Vertex(Point point, JLayeredPane layeredPane) {
@@ -20,9 +22,16 @@ public class Vertex {
     }
 
     protected void addLarvae() {
-        synchronized(larvaes) {
+        synchronized(larvaeLock) {
             larvaes.add(new Larvae(randomPointInVertex(), layeredPane));
         }
+    }
+
+    protected void putLarvae(Larvae larvae){
+        synchronized(larvaeLock) {
+            larvaes.add(larvae);
+        }
+
     }
 
     protected void draw() {
@@ -71,7 +80,35 @@ public class Vertex {
         return neighbours;
     }
 
+    protected ArrayList<Ant> getAnts() {
+        return ants;
+    }
+
+    protected void addAnt(Ant ant) {
+        synchronized(ants) {
+            ants.add(ant);
+        }
+    }
+
+    protected void removeAnt(Ant ant) {
+        synchronized(ants) {
+            ants.remove(ant);
+        }
+    }
+
     protected Vertex getRandomNeighbour() {
         return neighbours.get(Utils.random.nextInt(neighbours.size()));
+    }
+
+    protected Object getLarvaeLock() {
+        return larvaeLock;
+    }
+
+    protected Larvae takeLarvae() {
+        if (larvaes.isEmpty()) {
+            return null;
+        }
+        Larvae larvae = larvaes.remove(larvaes.size() - 1);
+        return larvae;
     }
 }

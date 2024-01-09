@@ -111,8 +111,14 @@ public class World {
             System.out.println("Blue anthill not initialized");
             return;
         }
+        double randomValue;
         for (int i = 0; i < numAnts; i++) {
-            ants.add(new Drone(blueAnthill, layeredPane));
+            randomValue = Math.random();
+            if (randomValue < 0.5) {
+                ants.add(new Worker(blueAnthill, layeredPane));
+            } else {
+                ants.add(new Drone(blueAnthill, layeredPane));
+            }
         }
     }
 

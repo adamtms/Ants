@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class Ant extends Thread {
     private static String imagePath = "images/RedAnt.png";
-    private static ImageIcon antImage = new ImageIcon(imagePath);;
+    private static ImageIcon antImage = new ImageIcon(imagePath);
     private static int size = antImage.getIconWidth();
     private JPanel antPanel;
     private ArrayList<Vertex> path;
@@ -26,6 +26,8 @@ public abstract class Ant extends Thread {
         this.antPanel.setLocation(randomPoint);
         this.strength = Utils.random.nextInt(1, 5);
         this.health = Utils.random.nextInt(10, 15);
+
+        anthill.addAnt(this);
     }
 
     protected void die() {
@@ -36,10 +38,12 @@ public abstract class Ant extends Thread {
     protected boolean receiveDamage(int damage) {
         boolean died = false;
         synchronized (this) {
+            System.out.println("Ant received " + damage + " damage");
             health -= damage;
             if (health <= 0) {
                 die();
                 died = true;
+                currentVertex().removeAnt(this);
             }
         }
         return died;
@@ -49,11 +53,15 @@ public abstract class Ant extends Thread {
         return strength;
     }
 
+    protected int setStrength(int strength) {
+        return this.strength = strength;
+    }
+
     protected JPanel getPanel() {
         return antPanel;
     }
 
-    private Vertex currentVertex() {
+    protected Vertex currentVertex() {
         return path.getLast();
     }
 
@@ -72,14 +80,28 @@ public abstract class Ant extends Thread {
                     break;
                 }
             }
-            Vertex currentVertex = currentVertex();
-            Vertex nextVertex = currentVertex.getRandomNeighbour();
-            smoothMove(nextVertex);
-            path.add(nextVertex);
+            doAction();
         }
     }
 
-    private void smoothMove(Vertex nextVertex) {
+    protected void doAction() {
+        move();
+        sleep(300);
+        return;
+    }
+
+    private void move() {
+        Vertex currentVertex = currentVertex();
+        Vertex nextVertex = currentVertex.getRandomNeighbour();
+        synchronized (currentVertex().getAnts()) {
+            currentVertex().removeAnt(this);
+        }
+        synchronized (this) {
+            if (!alive) {
+                return;
+            }
+        }
+
         int steps = (int) (10 * nextVertex.getDifficulty() * currentVertex().distance(nextVertex) / Vertex.size);
         int delay = 40; // Delay between each step in milliseconds
 
@@ -97,6 +119,11 @@ public abstract class Ant extends Thread {
             int y = start.y + dy * i;
             antPanel.setLocation(x, y);
             sleep(delay);
+        }
+
+        path.add(nextVertex);
+        synchronized (nextVertex.getAnts()) {
+            nextVertex.addAnt(this);
         }
     }
 }

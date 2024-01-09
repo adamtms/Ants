@@ -6,7 +6,7 @@ import javax.swing.JLayeredPane;
 
 public class Larvae {
     private static String imagePath = "images/Grub.png";
-    private static ImageIcon larveaImage = new ImageIcon(imagePath);
+    private static ImageIcon larveaImage = Utils.getScaledImage(imagePath, 20);
     private static int size = larveaImage.getIconWidth();
     private JLabel larveaLabel;
 
@@ -14,5 +14,9 @@ public class Larvae {
         larveaLabel = new JLabel(larveaImage);
         larveaLabel.setBounds(point.x - size / 2, point.y - size / 2, size, size);
         layeredPane.add(larveaLabel, Integer.valueOf(1));
+    }
+
+    protected JLabel getLabel() {
+        return larveaLabel;
     }
 }
