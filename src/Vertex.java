@@ -3,10 +3,10 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Vertex {
-    private static String imagePath = "images/vertex.png";
+    private static String imagePath = "images/TransparentCircle.png";
     protected static int size = 120;
     protected static int radius = size / 2;
-    private static ImageIcon vertexImage = Utils.getScaledImage(imagePath, size);
+    private static ImageIcon vertexImage = Utils.getScaledImage(imagePath, size + 20);
     private Point point;
     private double difficulty;
     private ArrayList<Vertex> neighbours = new ArrayList<Vertex>();
@@ -38,7 +38,7 @@ public class Vertex {
 
     protected void draw() {
         JLabel vertexLabel = new JLabel(vertexImage);
-        vertexLabel.setBounds(point.x - radius, point.y - radius, size, size);
+        vertexLabel.setBounds(point.x - radius - 10, point.y - radius - 10, size + 10, size + 10);
         layeredPane.add(vertexLabel, Integer.valueOf(0));
     }
 
@@ -111,6 +111,7 @@ public class Vertex {
             return null;
         }
         Larvae larvae = larvaes.remove(larvaes.size() - 1);
+        layeredPane.remove(larvae.getLabel());
         return larvae;
     }
 }

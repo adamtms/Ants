@@ -72,6 +72,14 @@ public abstract class Ant extends Thread {
         return path.getLast();
     }
 
+    protected Vertex getAnthill(){
+        return path.get(0);
+    }
+
+    protected ArrayList<Vertex> getPath() {
+        return path;
+    }
+
     protected void sleep(int duration){
         try {
             Thread.sleep(duration);
@@ -92,14 +100,17 @@ public abstract class Ant extends Thread {
     }
 
     protected void doAction() {
-        move();
+        randomMove();
         sleep(300);
         return;
     }
 
-    private void move() {
-        Vertex currentVertex = currentVertex();
-        Vertex nextVertex = currentVertex.getRandomNeighbour();
+    private void randomMove() {
+        Vertex nextVertex = currentVertex().getRandomNeighbour();
+        move(nextVertex);
+    }
+
+    protected void move(Vertex nextVertex) {
         synchronized (currentVertex().getAnts()) {
             currentVertex().removeAnt(this);
         }

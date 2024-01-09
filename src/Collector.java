@@ -1,27 +1,27 @@
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JLabel;
 
-public class Worker extends BlueAnt implements Attacking, TakingLarvae{
-    private static String sackPath = "images/Sack.png";
-    private static ImageIcon sackImage = Utils.getScaledImage(sackPath, 20);
-    private static String pickaxePath = "images/Pickaxe.png";
-    private static ImageIcon pickaxeImage = Utils.getScaledImage(pickaxePath, 20);
+public class Collector extends RedAnt implements TakingLarvae{
+    private static String topHatPath = "images/TopHat.png";
+    private static ImageIcon topHatImage = Utils.getScaledImage(topHatPath, 15);
     private ArrayList<Larvae> larvaes = new ArrayList<Larvae>();
+    private static String stonePath = "images/RealityStone.png";
+    private static ImageIcon stoneImage = Utils.getScaledImage(stonePath, 20);
 
-    Worker(BlueAnthill anthill, JLayeredPane layeredPane) {
+    Collector(RedAnthill anthill, JLayeredPane layeredPane) {
         super(anthill, layeredPane);
-        JLabel sackLabel = new JLabel(sackImage);
-        sackLabel.setBounds(18, 18, sackImage.getIconWidth(), sackImage.getIconHeight());
-        getPanel().add(sackLabel);
-        getPanel().setComponentZOrder(sackLabel, 0);
-        JLabel pickaxeLabel = new JLabel(pickaxeImage);
-        pickaxeLabel.setBounds(32, 24, pickaxeImage.getIconWidth(), pickaxeImage.getIconHeight());
-        getPanel().add(pickaxeLabel);
-        getPanel().setComponentZOrder(pickaxeLabel, 0);
-        receiveDamage(-3); //workers should be more tanky
+        JLabel topHatLabel = new JLabel(topHatImage);
+        topHatLabel.setBounds(12, 14, topHatImage.getIconWidth(), topHatImage.getIconHeight());
+        getPanel().add(topHatLabel);
+        getPanel().setComponentZOrder(topHatLabel, 0);
+        JLabel stoneLabel = new JLabel(stoneImage);
+        stoneLabel.setBounds(5, 25, stoneImage.getIconWidth(), stoneImage.getIconHeight());
+        getPanel().add(stoneLabel);
+        getPanel().setComponentZOrder(stoneLabel, 0);
+        setStrength(getStrength() + 1); // Collectors are stronger than normal ants because they have money for gym
     }
 
     protected void doAction(){
@@ -37,21 +37,7 @@ public class Worker extends BlueAnt implements Attacking, TakingLarvae{
         }
         boolean tookLarvae = tryTakeLarvae();
         if (tookLarvae) {
-            sleep(100);
-            return;
-        }
-        boolean attacked = false;
-        synchronized (currentVertex().getAnts()){
-            for (Ant ant : currentVertex().getAnts()){
-                if (ant instanceof RedAnt){
-                    attack(ant);
-                    attacked = true;
-                    break;
-                }
-            }
-        }
-        if (attacked) {
-            sleep(140);
+            sleep(90);
             return;
         }
         super.doAction();
@@ -67,14 +53,14 @@ public class Worker extends BlueAnt implements Attacking, TakingLarvae{
         }
     }
 
-    private void depositLarvae() {
-        Larvae larvae = larvaes.remove(larvaes.size() - 1);
-        getPanel().remove(larvae.getLabel());
-        getAnthill().putLarvae(larvae);
+    protected boolean hasLarvae() {
+        return larvaes.size() > 0;
     }
 
-    private void attack(Ant ant) {
-        ant.receiveDamage(getStrength());
+    protected void depositLarvae() {
+        Larvae larvae = larvaes.remove(larvaes.size() - 1);
+        getPanel().remove(larvae.getLabel());
+        currentVertex().putLarvae(larvae);
     }
 
     private boolean tryTakeLarvae() {
@@ -89,7 +75,7 @@ public class Worker extends BlueAnt implements Attacking, TakingLarvae{
         JLabel larvaeLabel = larvae.getLabel();
         larvaeLabel.setBounds(20 + Utils.random.nextInt(-3, 4), 20 + Utils.random.nextInt(-3, 4),  larvaeLabel.getWidth(), larvaeLabel.getHeight());
         getPanel().add(larvaeLabel);
-        getPanel().setComponentZOrder(larvaeLabel, 0);
+        getPanel().setComponentZOrder(larvaeLabel, 1);
         return true;
     }
 

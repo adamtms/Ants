@@ -130,9 +130,13 @@ public class World {
         double randomValue;
         for (int i = 0; i < numAnts; i++) {
             randomValue = Math.random();
-            if (randomValue <= 1) {
+            if (randomValue <= 0.3) {
                 ants.add(new Soldier(redAnthill, layeredPane));
-            } 
+            } else if (randomValue <= 0.7) {
+                ants.add(new Collector(redAnthill, layeredPane));
+            } else {
+                ants.add(new Blunderer(redAnthill, layeredPane));
+            }
         }
     }
 
