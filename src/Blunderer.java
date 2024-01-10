@@ -17,7 +17,7 @@ public class Blunderer extends Collector{
     }
 
     protected void move(Vertex nextVertex){
-        if (hasLarvae()  && Math.random() < 0.1){
+        if (hasLarvae()  && Math.random() < 0.2){
             synchronized(this) { // we do not want it depositing larvae while dying
                 synchronized(currentVertex().getLarvaeLock()) {
                     depositLarvae();

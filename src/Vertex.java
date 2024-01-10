@@ -32,7 +32,7 @@ public class Vertex {
             larvaes.add(larvae);
         }
         Point point = randomPointInVertex();
-        larvae.getLabel().setBounds(point.x - size / 2 , point.y - size / 2, size, size);
+        larvae.recreateLabel(point, layeredPane);
         layeredPane.add(larvae.getLabel(), Integer.valueOf(1));
     }
 

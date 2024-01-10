@@ -16,6 +16,14 @@ public class Larvae {
         layeredPane.add(larveaLabel, Integer.valueOf(1));
     }
 
+    protected JLabel recreateLabel(Point point, JLayeredPane layeredPane) {
+        larveaLabel.setBounds(0,0,0,0);
+        larveaLabel = new JLabel(larveaImage);
+        larveaLabel.setBounds(point.x - size / 2, point.y - size / 2, size, size);
+        layeredPane.add(larveaLabel, Integer.valueOf(1));
+        return larveaLabel;
+    }
+
     protected JLabel getLabel() {
         return larveaLabel;
     }
