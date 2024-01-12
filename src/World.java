@@ -44,6 +44,8 @@ public class World {
         scrollPane.setBounds(width, 0, sidePanelWidth, height);
         layeredPane.add(scrollPane, Integer.valueOf(0));
 
+
+
         frame.add(layeredPane);
         frame.setVisible(true);
 
@@ -114,6 +116,22 @@ public class World {
         }
     }
 
+    private void addWorker() {
+        synchronized(ants){
+            Ant ant = new Worker(blueAnthill, layeredPane);
+            ants.add(ant);
+            ant.start();
+        }
+    }
+
+    private void addDrone() {
+        synchronized(ants){
+            Ant ant = new Drone(blueAnthill, layeredPane);
+            ants.add(ant);
+            ant.start();
+        }
+    }
+
     public void initializeBlueAnts(int numAnts) {
         if (blueAnthill == null) {
             System.out.println("Blue anthill not initialized");
@@ -123,10 +141,34 @@ public class World {
         for (int i = 0; i < numAnts; i++) {
             randomValue = Math.random();
             if (randomValue < 0.6) {
-                ants.add(new Worker(blueAnthill, layeredPane));
+                addWorker();
             } else {
-                ants.add(new Drone(blueAnthill, layeredPane));
+                addDrone();
             }
+        }
+    }
+
+    private void addCollector() {
+        synchronized(ants){
+            Ant ant = new Collector(redAnthill, layeredPane);
+            ants.add(ant);
+            ant.start();
+        }
+    }
+
+    private void addSoldier() {
+        synchronized(ants){
+            Ant ant = new Soldier(redAnthill, layeredPane);
+            ants.add(ant);
+            ant.start();
+        }
+    }
+
+    private void addBlunderer() {
+        synchronized(ants){
+            Ant ant = new Blunderer(redAnthill, layeredPane);
+            ants.add(ant);
+            ant.start();
         }
     }
 
@@ -139,11 +181,11 @@ public class World {
         for (int i = 0; i < numAnts; i++) {
             randomValue = Math.random();
             if (randomValue <= 0.3) {
-                ants.add(new Soldier(redAnthill, layeredPane));
+                addSoldier();
             } else if (randomValue <= 0.6) {
-                ants.add(new Collector(redAnthill, layeredPane));
+                addCollector();
             } else {
-                ants.add(new Blunderer(redAnthill, layeredPane));
+                addBlunderer();
             }
         }
     }
@@ -151,9 +193,6 @@ public class World {
     public void initializeAnts(int numAnts) {
         initializeRedAnts(numAnts);
         initializeBlueAnts(numAnts);
-        for (Ant ant : ants) {
-            ant.start();
-        }
     }
 
     public void run(){

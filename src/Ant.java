@@ -29,7 +29,9 @@ public abstract class Ant extends Thread {
         this.health = Utils.random.nextInt(10, 15);
         this.name = Utils.randomName();
 
-        anthill.addAnt(this);
+        synchronized (anthill.getAnts()) {
+            anthill.addAnt(this);
+        }
     }
 
     protected String getAntName() {
