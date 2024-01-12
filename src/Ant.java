@@ -144,4 +144,13 @@ public abstract class Ant extends Thread {
             nextVertex.addAnt(this);
         }
     }
+
+    protected String getInfo(){
+        synchronized (this) {
+            if (alive) {
+                return name + "\nStrength: " + strength + "\nHealth: " + health;
+            }
+        }
+        return null;
+    }
 }

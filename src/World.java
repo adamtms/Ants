@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
-import java.awt.Point;
 
 public class World {
     private static String imagePath = "images/grass.jpeg";
@@ -12,18 +11,20 @@ public class World {
     static int height = 801;
     static int numColumns = 15;
     static int numRows = 12;
+    static int sidePanelWidth = 250;
     private BlueAnthill blueAnthill;
     private RedAnthill redAnthill;
     private ArrayList<Vertex> vertices = new ArrayList<Vertex>();
     private ArrayList<Ant> ants = new ArrayList<Ant>();
+    private JTextArea textArea;
     
     public World() {
         frame = new JFrame("Ants simulation");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(width, height);
+        frame.setSize(width + sidePanelWidth, height);
 
         layeredPane = new JLayeredPane();
-        layeredPane.setPreferredSize(new Dimension(width, height));
+        layeredPane.setPreferredSize(new Dimension(width + sidePanelWidth, height));
 
         // Set background image
         File imageFile = new File(imagePath);
@@ -36,10 +37,17 @@ public class World {
             System.out.println("Image file not found: " + imagePath);
         }
 
+        // Set side panel
+        textArea = new JTextArea();
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        textArea.setEditable(false);
+        scrollPane.setBounds(width, 0, sidePanelWidth, height);
+        layeredPane.add(scrollPane, Integer.valueOf(0));
+
         frame.add(layeredPane);
-        frame.pack();
         frame.setVisible(true);
-    }
+
+        }
 
     public void initializeAnthills(){
         int x = Utils.random.nextInt(Anthill.radius, width / 3 - Anthill.radius);
@@ -114,7 +122,7 @@ public class World {
         double randomValue;
         for (int i = 0; i < numAnts; i++) {
             randomValue = Math.random();
-            if (randomValue < 0.5) {
+            if (randomValue < 0.6) {
                 ants.add(new Worker(blueAnthill, layeredPane));
             } else {
                 ants.add(new Drone(blueAnthill, layeredPane));
@@ -132,7 +140,7 @@ public class World {
             randomValue = Math.random();
             if (randomValue <= 0.3) {
                 ants.add(new Soldier(redAnthill, layeredPane));
-            } else if (randomValue <= 0.7) {
+            } else if (randomValue <= 0.6) {
                 ants.add(new Collector(redAnthill, layeredPane));
             } else {
                 ants.add(new Blunderer(redAnthill, layeredPane));
@@ -150,14 +158,39 @@ public class World {
 
     public void run(){
         Vertex vertex;
+        int withoutAdding = 0;
         while(true){
             vertex = vertices.get(Utils.random.nextInt(2, vertices.size()));
-            vertex.addLarvae();
+            updateAnts();
+            if (withoutAdding == 100){
+                withoutAdding = 0;
+                vertex.addLarvae();
+            }
+            withoutAdding++;
             try {
-                Thread.sleep(1000);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 break;
             }
+        }
+    }
+
+    private void updateAnts() {
+        String text = "";
+        String tempText;
+        ArrayList<Ant> antsToRemove = new ArrayList<>();
+        for (Ant ant : ants) {
+            tempText = ant.getInfo();
+            if (tempText == null) {
+                antsToRemove.add(ant);
+                continue;
+            }
+            text += tempText;
+            text += "\n------------------------\n"; // Pretty divider
+        }
+        textArea.setText(text);
+        for (Ant ant : antsToRemove) {
+            ants.remove(ant);
         }
     }
 }
