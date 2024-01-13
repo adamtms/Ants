@@ -4,6 +4,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
+/**
+ * Represents a Worker ant that can attack red ants and gather larvae.
+ * A Worker ant has a sack and a pickaxe.
+ */
 public class Worker extends BlueAnt implements Attacking, TakingLarvae {
     private static String sackPath = "images/Sack.png";
     private static ImageIcon sackImage = Utils.getScaledImage(Worker.class.getResource(sackPath), 20);

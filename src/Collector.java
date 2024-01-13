@@ -4,6 +4,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JLayeredPane;
 import javax.swing.JLabel;
 
+/**
+ * The Collector class represents a red ant that collects larvae and deposits them at the anthill.
+ */
 public class Collector extends RedAnt implements TakingLarvae {
     private static String topHatPath = "images/TopHat.png";
     private static ImageIcon topHatImage = Utils.getScaledImage(Collector.class.getResource(topHatPath), 15);

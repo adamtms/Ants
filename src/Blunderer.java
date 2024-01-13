@@ -2,6 +2,9 @@ import javax.swing.JLayeredPane;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+/**
+ * Blunderer is a clumsy collector with a chance to drop larvae while moving.
+ */
 public class Blunderer extends Collector {
     private static String duncePath = "images/Dunce.png";
     private static ImageIcon dunceImage = Utils.getScaledImage(Blunderer.class.getResource(duncePath), 30);

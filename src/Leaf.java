@@ -4,6 +4,10 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import java.util.ArrayList;
 
+/**
+ * Represents a leaf vertex in the Ants simulation.
+ * On this vertex ants cannot attack each other.
+ */
 public class Leaf extends Vertex {
     private static String imagePath = "images/leaf.png";
     private static int size = 150; // just for visuals

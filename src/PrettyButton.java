@@ -5,6 +5,9 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import javax.swing.JButton;
 
+/**
+ * A custom button with a gradient background.
+ */
 public class PrettyButton extends JButton {
     private Color color;
 

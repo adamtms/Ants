@@ -3,6 +3,10 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import java.awt.Point;
 
+
+/**
+ * Represents a blue anthill.
+ */
 public class BlueAnthill extends Anthill {
     private static String imagePath = "images/BlueAnthill.png";
     private static ImageIcon vertexImage = Utils.getScaledImage(BlueAnthill.class.getResource(imagePath), size);

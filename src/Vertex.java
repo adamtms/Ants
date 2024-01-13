@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Represents a vertex in a graph.
+ */
 public class Vertex {
     private static String imagePath = "images/TransparentCircle.png";
     protected static int size = 120;

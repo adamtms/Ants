@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * The Ant class represents an abstract ant in the ant simulation.
+ * It extends the Thread class and provides common functionality and attributes for all ant types.
+ */
 public abstract class Ant extends Thread {
     private static String imagePath = "images/RedAnt.png";
     private static ImageIcon antImage = new ImageIcon(Ant.class.getResource(imagePath));
@@ -99,6 +103,11 @@ public abstract class Ant extends Thread {
         }
     }
 
+    /**
+     * Runs the ant's behavior in a continuous loop until it is no longer alive.
+     * The ant performs its action and then checks if it is still alive.
+     * If the ant is no longer alive, the loop breaks.
+     */
     public void run() {
         while (true) {
             synchronized (this) {

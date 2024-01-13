@@ -2,6 +2,9 @@ import javax.swing.JLayeredPane;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+/**
+ * Represents a Drone that does nothing but move, it has a dunce hat.
+ */
 public class Drone extends BlueAnt {
     static String duncePath = "images/Dunce.png";
     static ImageIcon DunceImage = Utils.getScaledImage(Drone.class.getResource(duncePath), 25);

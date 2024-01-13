@@ -3,6 +3,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
+/**
+ * Represents a red anthill.
+ */
 public class RedAnthill extends Anthill {
     private static String imagePath = "images/RedAnthill.png";
     private static ImageIcon vertexImage = Utils.getScaledImage(RedAnthill.class.getResource(imagePath), size);

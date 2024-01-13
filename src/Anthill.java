@@ -4,6 +4,9 @@ import java.awt.Font;
 import javax.swing.JLayeredPane;
 import javax.swing.*;
 
+/**
+ * Represents an abstract class for an anthill.
+ */
 public abstract class Anthill extends Vertex {
     private int countLarvae = 0;
     private JLabel larvaeNumberLabel = new JLabel("0");

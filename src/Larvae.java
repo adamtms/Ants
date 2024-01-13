@@ -4,6 +4,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
+/**
+ * The Larvae class represents a larva in the ant simulation.
+ * It contains methods to create and manipulate the larva's image label.
+ */
 public class Larvae {
     private static String imagePath = "images/Grub.png";
     private static ImageIcon larveaImage = Utils.getScaledImage(Larvae.class.getResource(imagePath), 20);

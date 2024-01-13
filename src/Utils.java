@@ -6,6 +6,9 @@ import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.awt.Graphics2D;
 
+/**
+ * The Utils class provides utility methods for image manipulation and generating random names.
+ */
 public class Utils {
     protected static Random random = new Random();
 

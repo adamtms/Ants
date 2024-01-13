@@ -2,6 +2,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
+/**
+ * Represents a Soldier ant that can attack BlueAnts.
+ * A Soldier ant has a sword and shield and is stronger than a normal ant.
+ */
 public class Soldier extends RedAnt implements Attacking {
     private static String swordPath = "images/Sword.png";
     private static ImageIcon swordImage = Utils.flipImageIcon(Utils.getScaledImage(Soldier.class.getResource(swordPath), 18));

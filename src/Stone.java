@@ -3,6 +3,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
+/**
+ * Represents a stone vertex in a graph.
+ * It is a vertex that is harder to go to.
+ */
 public class Stone extends Vertex {
     private static String imagePath = "images/Stone.png";
     private static int size = 150; // just for visuals

@@ -2,6 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * The World class represents the simulation world for the Ants simulation.
+ * It contains the graphical user interface (GUI) components, such as the frame,
+ * layered pane, buttons, and text area. It also manages the initialization and
+ * updating of the ants, vertices, and anthills in the simulation.
+ */
 public class World {
     private static String imagePath = "images/grass.jpeg";
     private JFrame frame;
@@ -19,6 +25,10 @@ public class World {
     private ArrayList<Ant> ants = new ArrayList<Ant>();
     private JTextArea textArea;
 
+    /**
+     * Represents the world in the Ants simulation.
+     * Initializes the GUI components and anthills.
+     */
     public World() {
         frame = new JFrame("Ants simulation");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -97,7 +107,7 @@ public class World {
         layeredPane.add(buttonPanel, Integer.valueOf(0));
     }
 
-    public void initializeAnthills() {
+    private void initializeAnthills() {
         int x = Utils.random.nextInt(Anthill.radius, width / 3 - Anthill.radius);
         int y = Utils.random.nextInt(Anthill.radius, height / 3 - Anthill.radius);
         BlueAnthill blueAnthill = new BlueAnthill(new Point(x, y), layeredPane);
@@ -124,11 +134,18 @@ public class World {
         return vertex;
     }
 
+    /**
+     * Initializes the vertices in the world. Maximum number of vertices is 32 (including Anthills).
+     * It will not initialize vertices if the number of vertices is already greater than 32.
+     * It cannot decrease the number of vertices.
+     * 
+     * @param numVertices the number of vertices the world should have initialized
+     */
     public void initializeVertices(int numVertices) {
         boolean intersects = false;
         Vertex vertex;
         double distance;
-        for (int i = 0; i < numVertices; i++) {
+        for (int i = vertices.size(); i <= numVertices; i++) {
             int x = Utils.random.nextInt(Vertex.radius, width - Vertex.radius);
             int y = Utils.random.nextInt(Vertex.radius, height - Vertex.radius);
             vertex = newVertex(new Point(x, y), layeredPane);
@@ -155,6 +172,11 @@ public class World {
         }
     }
 
+    /**
+     * Initializes the specified number of larvaes in the world.
+     *
+     * @param numLarvaes the number of larvaes to initialize
+     */
     public void initializeLarvaes(int numLarvaes) {
         for (int i = 0; i < numLarvaes; i++) {
             Vertex vertex = vertices.get(Utils.random.nextInt(2, vertices.size()));
@@ -178,6 +200,11 @@ public class World {
         }
     }
 
+    /**
+     * Initializes a specified number of blue ants in the world.
+     * 
+     * @param numAnts the number of blue ants to initialize
+     */
     public void initializeBlueAnts(int numAnts) {
         if (blueAnthill == null) {
             System.out.println("Blue anthill not initialized");
@@ -218,9 +245,14 @@ public class World {
         }
     }
 
+    /**
+     * Initializes a specified number of red ants in the world.
+     * 
+     * @param numAnts the number of red ants to initialize
+     */
     public void initializeRedAnts(int numAnts) {
         if (redAnthill == null) {
-            System.out.println("Blue anthill not initialized");
+            System.out.println("Red anthill not initialized");
             return;
         }
         double randomValue;
@@ -236,11 +268,22 @@ public class World {
         }
     }
 
+    /**
+     * Initializes the ants in the world.
+     * It will initialize the same number of blue and red ants.
+     * 
+     * @param numAnts the number of ants to initialize in each anthill
+     */
     public void initializeAnts(int numAnts) {
         initializeRedAnts(numAnts);
         initializeBlueAnts(numAnts);
     }
 
+    /**
+     * Runs the simulation of the world.
+     * This method continuously adds larvaes to the world and updates the ants' information. 
+     * It runs indefinitely until interrupted.
+     */
     public void run() {
         Vertex vertex;
         int withoutAdding = 0;
