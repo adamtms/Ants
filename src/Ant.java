@@ -35,58 +35,12 @@ public abstract class Ant extends Thread {
         antPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                createKillFrame();
+                receiveDamage(9999);
             }
         });
         synchronized (anthill.getAnts()) {
             anthill.addAnt(this);
         }
-    }
-
-    private void createKillFrame(){
-        JFrame killFrame = new JFrame();
-        killFrame.setLayout(null);
-        killFrame.setSize(300, 100);
-        killFrame.setTitle(name);
-        killFrame.setLocationRelativeTo(null);
-        killFrame.setVisible(true);
-        killFrame.setResizable(false);
-        JLabel killLabel = new JLabel("Kill or spare?");
-        killLabel.setBounds(110,0,300,20);
-        killFrame.add(killLabel);
-        JButton killButton = new PrettyButton("Kill", Color.RED.darker());
-        killButton.setBounds(0,23,150,50);
-        killFrame.add(killButton);
-        killButton.addActionListener(e -> {
-            synchronized (this) {
-                if (alive) {
-                    die();
-                    createYouAreAMonsterFrame();
-                }
-            }
-            killFrame.dispose();
-        });
-        JButton cancelButton = new PrettyButton("Spare", Color.YELLOW.darker());
-        cancelButton.setBounds(150,23,150,50);
-        killFrame.add(cancelButton);
-        cancelButton.addActionListener(e -> {//JOptionPane.showMessageDialog(null,
-                //"You are a good person. This ant will remember your kindness.");
-            killFrame.dispose();});
-    }
-
-    private void createYouAreAMonsterFrame(){
-        JFrame monsterFrame = new JFrame();
-        monsterFrame.setLayout(null);
-        monsterFrame.setSize(300, 100);
-        monsterFrame.setTitle(name);
-        monsterFrame.setLocationRelativeTo(null);
-        monsterFrame.setVisible(true);
-        monsterFrame.setResizable(false);
-        TextArea monsterLabel = new TextArea("You are a monster! \nHow could you kill an innocent creature\nand act as if nothing has happened?");
-        monsterLabel.setEnabled(false);
-
-        monsterLabel.setBounds(0, 0, 300, 100);
-        monsterFrame.add(monsterLabel);
     }
 
     protected String getAntName() {
