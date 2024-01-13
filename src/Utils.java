@@ -7,9 +7,9 @@ import java.net.URL;
 import java.awt.Graphics2D;
 
 /**
- * The Utils class provides utility methods for image manipulation and generating random names.
+ * The Utils abstact class provides utility methods for image manipulation and generating random names.
  */
-public class Utils {
+public abstract class Utils {
     protected static Random random = new Random();
 
     protected static ImageIcon getScaledImage(URL imagePath, int size) {
