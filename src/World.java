@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
+import java.awt.Color;
 
 public class World {
     private static String imagePath = "images/grass.jpeg";
@@ -12,6 +13,7 @@ public class World {
     static int numColumns = 15;
     static int numRows = 12;
     static int sidePanelWidth = 250;
+    static int sidePanelStartHeight = 100;
     private BlueAnthill blueAnthill;
     private RedAnthill redAnthill;
     private ArrayList<Vertex> vertices = new ArrayList<Vertex>();
@@ -41,15 +43,43 @@ public class World {
         textArea = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(textArea);
         textArea.setEditable(false);
-        scrollPane.setBounds(width, 0, sidePanelWidth, height);
+        scrollPane.setBounds(width, sidePanelStartHeight, sidePanelWidth, height - sidePanelStartHeight);
         layeredPane.add(scrollPane, Integer.valueOf(0));
 
-
-
+        createButtons();
+    
         frame.add(layeredPane);
         frame.setVisible(true);
 
         }
+
+    private void createButtons(){
+        JPanel buttonPanel = new JPanel(null);
+        buttonPanel.setBounds(width, 0, sidePanelWidth, sidePanelStartHeight);
+        JButton addWorkerButton = new PrettyButton("Worker", Color.BLUE);
+        addWorkerButton.addActionListener(e -> addWorker());
+        JButton addDroneButton = new PrettyButton("Drone", Color.BLUE);
+        addDroneButton.addActionListener(e -> addDrone());
+        JButton addCollectorButton = new PrettyButton("Collector", Color.RED);
+        addCollectorButton.addActionListener(e -> addCollector());
+        JButton addSoldierButton = new PrettyButton("Soldier", Color.RED);
+        addSoldierButton.addActionListener(e -> addSoldier());
+        JButton addBlundererButton = new PrettyButton("Blunderer", Color.RED);
+        addBlundererButton.addActionListener(e -> addBlunderer());
+        addWorkerButton.setBounds(0, 0, sidePanelWidth/2, sidePanelStartHeight/2);
+        addDroneButton.setBounds(sidePanelWidth/2, 0, sidePanelWidth/2, sidePanelStartHeight/2);
+        addCollectorButton.setBounds(0, sidePanelStartHeight/2, sidePanelWidth/3, sidePanelStartHeight/2);
+        addSoldierButton.setBounds(sidePanelWidth/3, sidePanelStartHeight/2, sidePanelWidth/3, sidePanelStartHeight/2);
+        addBlundererButton.setBounds(sidePanelWidth*2/3, sidePanelStartHeight/2, sidePanelWidth/3, sidePanelStartHeight/2);
+
+        buttonPanel.add(addWorkerButton);
+        buttonPanel.add(addDroneButton);
+        buttonPanel.add(addCollectorButton);
+        buttonPanel.add(addSoldierButton);
+        buttonPanel.add(addBlundererButton);
+        
+        layeredPane.add(buttonPanel, Integer.valueOf(0));
+    }
 
     public void initializeAnthills(){
         int x = Utils.random.nextInt(Anthill.radius, width / 3 - Anthill.radius);
