@@ -12,7 +12,8 @@ public class World {
     static int numColumns = 15;
     static int numRows = 12;
     static int sidePanelWidth = 250;
-    static int sidePanelStartHeight = 100;
+    static int addAntsPanelHeight = 100;
+    static int addLarvaePanelHeight = 70;
     private BlueAnthill blueAnthill;
     private RedAnthill redAnthill;
     private ArrayList<Vertex> vertices = new ArrayList<Vertex>();
@@ -27,7 +28,6 @@ public class World {
         layeredPane = new JLayeredPane();
         layeredPane.setPreferredSize(new Dimension(width + sidePanelWidth, height));
 
-        // Set background image
         File imageFile = new File(imagePath);
         if (imageFile.exists()) {
             ImageIcon backgroundImage = new ImageIcon(imagePath);
@@ -38,23 +38,24 @@ public class World {
             System.out.println("Image file not found: " + imagePath);
         }
 
-        // Set side panel
         textArea = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(textArea);
         textArea.setEnabled(false);
-        scrollPane.setBounds(width, sidePanelStartHeight, sidePanelWidth, height - sidePanelStartHeight);
+        scrollPane.setBounds(width, addAntsPanelHeight, sidePanelWidth, 
+                            height - addAntsPanelHeight - addLarvaePanelHeight);
         layeredPane.add(scrollPane, Integer.valueOf(0));
 
-        createButtons();
+        createAntButtons();
+        createLarvaeButtons();
     
         frame.add(layeredPane);
         frame.setVisible(true);
         frame.setResizable(false);
         }
 
-    private void createButtons(){
+    private void createAntButtons(){
         JPanel buttonPanel = new JPanel(null);
-        buttonPanel.setBounds(width, 0, sidePanelWidth, sidePanelStartHeight);
+        buttonPanel.setBounds(width, 0, sidePanelWidth, addAntsPanelHeight);
         JButton addWorkerButton = new PrettyButton("Worker", Color.BLUE);
         addWorkerButton.addActionListener(e -> addWorker());
         JButton addDroneButton = new PrettyButton("Drone", Color.BLUE);
@@ -65,11 +66,11 @@ public class World {
         addSoldierButton.addActionListener(e -> addSoldier());
         JButton addBlundererButton = new PrettyButton("Blunderer", Color.RED);
         addBlundererButton.addActionListener(e -> addBlunderer());
-        addWorkerButton.setBounds(0, 0, sidePanelWidth/2, sidePanelStartHeight/2);
-        addDroneButton.setBounds(sidePanelWidth/2, 0, sidePanelWidth/2, sidePanelStartHeight/2);
-        addCollectorButton.setBounds(0, sidePanelStartHeight/2, sidePanelWidth/3, sidePanelStartHeight/2);
-        addSoldierButton.setBounds(sidePanelWidth/3, sidePanelStartHeight/2, sidePanelWidth/3, sidePanelStartHeight/2);
-        addBlundererButton.setBounds(sidePanelWidth*2/3, sidePanelStartHeight/2, sidePanelWidth/3, sidePanelStartHeight/2);
+        addWorkerButton.setBounds(0, 0, sidePanelWidth/2, addAntsPanelHeight/2);
+        addDroneButton.setBounds(sidePanelWidth/2, 0, sidePanelWidth/2, addAntsPanelHeight/2);
+        addCollectorButton.setBounds(0, addAntsPanelHeight/2, sidePanelWidth/3, addAntsPanelHeight/2);
+        addSoldierButton.setBounds(sidePanelWidth/3, addAntsPanelHeight/2, sidePanelWidth/3, addAntsPanelHeight/2);
+        addBlundererButton.setBounds(sidePanelWidth*2/3, addAntsPanelHeight/2, sidePanelWidth/3, addAntsPanelHeight/2);
 
         buttonPanel.add(addWorkerButton);
         buttonPanel.add(addDroneButton);
@@ -79,6 +80,26 @@ public class World {
         
         layeredPane.add(buttonPanel, Integer.valueOf(0));
     }
+
+    private void createLarvaeButtons(){
+        Color color = Color.GREEN.darker();
+        JPanel buttonPanel = new JPanel(null);
+        buttonPanel.setBounds(width, height - addLarvaePanelHeight, sidePanelWidth, addLarvaePanelHeight);
+        JButton add1LarvaeButton = new PrettyButton("1 Larvae", color);
+        add1LarvaeButton.addActionListener(e -> initializeLarvaes(1));
+        add1LarvaeButton.setBounds(0, 0, sidePanelWidth/3, addLarvaePanelHeight - 28);
+        buttonPanel.add(add1LarvaeButton);
+        JButton add5LarvaeButton = new PrettyButton("5 Larvaes", color);
+        add5LarvaeButton.addActionListener(e -> initializeLarvaes(5));
+        add5LarvaeButton.setBounds(sidePanelWidth/3, 0, sidePanelWidth/3, addLarvaePanelHeight - 28);
+        buttonPanel.add(add5LarvaeButton);
+        JButton add10LarvaeButton = new PrettyButton("10 Larvaes", color);
+        add10LarvaeButton.addActionListener(e -> initializeLarvaes(10));
+        add10LarvaeButton.setBounds(sidePanelWidth*2/3, 0, sidePanelWidth/3, addLarvaePanelHeight - 28);
+        buttonPanel.add(add10LarvaeButton);
+        layeredPane.add(buttonPanel, Integer.valueOf(0));
+    }
+
 
     public void initializeAnthills(){
         int x = Utils.random.nextInt(Anthill.radius, width / 3 - Anthill.radius);
