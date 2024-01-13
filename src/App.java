@@ -4,7 +4,7 @@ public class App {
         world.initializeAnthills();
         world.initializeVertices(30);
         world.initializeLarvaes(60);
-        //world.initializeAnts(10);
+        world.initializeAnts(10);
         world.run();
     }
 }

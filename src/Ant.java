@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 public abstract class Ant extends Thread {
     private static String imagePath = "images/RedAnt.png";
     private static ImageIcon antImage = new ImageIcon(imagePath);
@@ -29,6 +32,12 @@ public abstract class Ant extends Thread {
         this.health = Utils.random.nextInt(10, 15);
         this.name = Utils.randomName();
 
+        antPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                receiveDamage(9999);
+            }
+        });
         synchronized (anthill.getAnts()) {
             anthill.addAnt(this);
         }
@@ -99,6 +108,9 @@ public abstract class Ant extends Thread {
             }
             doAction();
         }
+        synchronized(currentVertex().getAnts()) {
+            currentVertex().removeAnt(this);
+        }
     }
 
     protected void doAction() {
@@ -115,11 +127,6 @@ public abstract class Ant extends Thread {
     protected void move(Vertex nextVertex) {
         synchronized (currentVertex().getAnts()) {
             currentVertex().removeAnt(this);
-        }
-        synchronized (this) {
-            if (!alive) {
-                return;
-            }
         }
 
         int steps = (int) (10 * nextVertex.getDifficulty() * currentVertex().distance(nextVertex) / Vertex.size);
