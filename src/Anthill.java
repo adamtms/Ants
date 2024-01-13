@@ -11,13 +11,14 @@ public abstract class Anthill extends Vertex {
     protected Anthill(Point point, JLayeredPane layeredPane) {
         super(point, layeredPane);
         setDifficulty(1);
-        
+
         createLarvaeLabel();
     }
 
     private void createLarvaeLabel() {
         larvaeNumberLabel = new JLabel(String.valueOf(countLarvae));
-        Font boldFont = new Font(larvaeNumberLabel.getFont().getName(), Font.BOLD, larvaeNumberLabel.getFont().getSize());
+        Font boldFont = new Font(larvaeNumberLabel.getFont().getName(), Font.BOLD,
+                larvaeNumberLabel.getFont().getSize());
         larvaeNumberLabel.setFont(boldFont);
         larvaeNumberLabel.setForeground(Color.WHITE);
         Point point = getPoint();
@@ -34,7 +35,7 @@ public abstract class Anthill extends Vertex {
         synchronized (getLarvaeLock()) {
             countLarvae += 1;
             recreateLarvaeLabel();
-            synchronized(larvae){
+            synchronized (larvae) {
                 getLayeredPane().remove(larvae.getLabel());
             }
         }

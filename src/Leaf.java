@@ -4,9 +4,9 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import java.util.ArrayList;
 
-public class Leaf extends Vertex{
+public class Leaf extends Vertex {
     private static String imagePath = "images/leaf.png";
-    private static int size = 150; //just for visuals
+    private static int size = 150; // just for visuals
     private static ImageIcon vertexImage = Utils.getScaledImage(imagePath, size);
     private static ArrayList<Ant> emptyAnts = new ArrayList<Ant>();
 

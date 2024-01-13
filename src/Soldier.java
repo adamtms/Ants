@@ -2,7 +2,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
-public class Soldier extends RedAnt implements Attacking{
+public class Soldier extends RedAnt implements Attacking {
     private static String swordPath = "images/Sword.png";
     private static ImageIcon swordImage = Utils.flipImageIcon(Utils.getScaledImage(swordPath, 18));
     private static String shieldPath = "images/Shield.png";
@@ -21,11 +21,11 @@ public class Soldier extends RedAnt implements Attacking{
         setStrength(getStrength() + 2);
     }
 
-    protected void doAction(){
+    protected void doAction() {
         boolean attacked = false;
-        synchronized (currentVertex().getAnts()){
-            for (Ant ant : currentVertex().getAnts()){
-                if (ant instanceof BlueAnt){
+        synchronized (currentVertex().getAnts()) {
+            for (Ant ant : currentVertex().getAnts()) {
+                if (ant instanceof BlueAnt) {
                     attack(ant);
                     attacked = true;
                     break;
@@ -43,4 +43,3 @@ public class Soldier extends RedAnt implements Attacking{
         ant.receiveDamage(getStrength());
     }
 }
-

@@ -49,7 +49,7 @@ public abstract class Ant extends Thread {
 
     protected void die() {
         alive = false;
-        antPanel.setBounds(0,0,0,0);
+        antPanel.setBounds(0, 0, 0, 0);
         System.out.println(name + " has died");
     }
 
@@ -83,7 +83,7 @@ public abstract class Ant extends Thread {
         return path.getLast();
     }
 
-    protected Vertex getAnthill(){
+    protected Vertex getAnthill() {
         return path.get(0);
     }
 
@@ -91,7 +91,7 @@ public abstract class Ant extends Thread {
         return path;
     }
 
-    protected void sleep(int duration){
+    protected void sleep(int duration) {
         try {
             Thread.sleep(duration);
         } catch (InterruptedException e) {
@@ -108,7 +108,7 @@ public abstract class Ant extends Thread {
             }
             doAction();
         }
-        synchronized(currentVertex().getAnts()) {
+        synchronized (currentVertex().getAnts()) {
             currentVertex().removeAnt(this);
         }
     }
@@ -130,7 +130,7 @@ public abstract class Ant extends Thread {
         }
 
         int steps = (int) (10 * nextVertex.getDifficulty() * currentVertex().distance(nextVertex) / Vertex.size);
-        int delay = 40; // Delay between each step in milliseconds
+        int delay = 40;
 
         Point start = antPanel.getLocation();
         Point end = nextVertex.randomPointInVertex();
@@ -154,7 +154,7 @@ public abstract class Ant extends Thread {
         }
     }
 
-    protected String getInfo(){
+    protected String getInfo() {
         synchronized (this) {
             if (alive) {
                 return name + "\nStrength: " + strength + "\nHealth: " + health;

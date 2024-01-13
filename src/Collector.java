@@ -4,7 +4,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLayeredPane;
 import javax.swing.JLabel;
 
-public class Collector extends RedAnt implements TakingLarvae{
+public class Collector extends RedAnt implements TakingLarvae {
     private static String topHatPath = "images/TopHat.png";
     private static ImageIcon topHatImage = Utils.getScaledImage(topHatPath, 15);
     private ArrayList<Larvae> larvaes = new ArrayList<Larvae>();
@@ -21,16 +21,16 @@ public class Collector extends RedAnt implements TakingLarvae{
         stoneLabel.setBounds(5, 25, stoneImage.getIconWidth(), stoneImage.getIconHeight());
         getPanel().add(stoneLabel);
         getPanel().setComponentZOrder(stoneLabel, 0);
-        setStrength(getStrength() + 1); // Collectors are stronger than normal ants because they have money for gym
+        setStrength(getStrength() + 1); // Collectors are stronger than normal ants because they have money to go to the gym
     }
 
-    protected void doAction(){
-        if (currentVertex() == getAnthill() && larvaes.size() > 0){
+    protected void doAction() {
+        if (currentVertex() == getAnthill() && larvaes.size() > 0) {
             depositLarvae();
             sleep(200);
             return;
         }
-        if (larvaes.size() == getStrength()){
+        if (larvaes.size() == getStrength()) {
             moveToHome();
             sleep(250);
             return;
@@ -73,7 +73,8 @@ public class Collector extends RedAnt implements TakingLarvae{
         }
         larvaes.add(larvae);
         JLabel larvaeLabel = larvae.getLabel();
-        larvaeLabel.setBounds(20 + Utils.random.nextInt(-3, 4), 20 + Utils.random.nextInt(-3, 4),  larvaeLabel.getWidth(), larvaeLabel.getHeight());
+        larvaeLabel.setBounds(20 + Utils.random.nextInt(-3, 4), 20 + Utils.random.nextInt(-3, 4),
+                larvaeLabel.getWidth(), larvaeLabel.getHeight());
         getPanel().add(larvaeLabel);
         getPanel().setComponentZOrder(larvaeLabel, 1);
         return true;

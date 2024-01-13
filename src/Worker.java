@@ -4,7 +4,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
-public class Worker extends BlueAnt implements Attacking, TakingLarvae{
+public class Worker extends BlueAnt implements Attacking, TakingLarvae {
     private static String sackPath = "images/Sack.png";
     private static ImageIcon sackImage = Utils.getScaledImage(sackPath, 20);
     private static String pickaxePath = "images/Pickaxe.png";
@@ -21,16 +21,16 @@ public class Worker extends BlueAnt implements Attacking, TakingLarvae{
         pickaxeLabel.setBounds(32, 24, pickaxeImage.getIconWidth(), pickaxeImage.getIconHeight());
         getPanel().add(pickaxeLabel);
         getPanel().setComponentZOrder(pickaxeLabel, 0);
-        receiveDamage(-3); //workers should be more tanky
+        receiveDamage(-3); // workers should be more tanky
     }
 
-    protected void doAction(){
-        if (currentVertex() == getAnthill() && larvaes.size() > 0){
+    protected void doAction() {
+        if (currentVertex() == getAnthill() && larvaes.size() > 0) {
             depositLarvae();
             sleep(200);
             return;
         }
-        if (larvaes.size() == getStrength()){
+        if (larvaes.size() == getStrength()) {
             moveToHome();
             sleep(250);
             return;
@@ -41,9 +41,9 @@ public class Worker extends BlueAnt implements Attacking, TakingLarvae{
             return;
         }
         boolean attacked = false;
-        synchronized (currentVertex().getAnts()){
-            for (Ant ant : currentVertex().getAnts()){
-                if (ant instanceof RedAnt){
+        synchronized (currentVertex().getAnts()) {
+            for (Ant ant : currentVertex().getAnts()) {
+                if (ant instanceof RedAnt) {
                     attack(ant);
                     attacked = true;
                     break;
@@ -87,7 +87,8 @@ public class Worker extends BlueAnt implements Attacking, TakingLarvae{
         }
         larvaes.add(larvae);
         JLabel larvaeLabel = larvae.getLabel();
-        larvaeLabel.setBounds(20 + Utils.random.nextInt(-3, 4), 20 + Utils.random.nextInt(-3, 4),  larvaeLabel.getWidth(), larvaeLabel.getHeight());
+        larvaeLabel.setBounds(20 + Utils.random.nextInt(-3, 4), 20 + Utils.random.nextInt(-3, 4),
+                larvaeLabel.getWidth(), larvaeLabel.getHeight());
         getPanel().add(larvaeLabel);
         getPanel().setComponentZOrder(larvaeLabel, 0);
         return true;

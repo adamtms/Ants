@@ -11,7 +11,7 @@ public class Utils {
     protected static ImageIcon getScaledImage(String imagePath, int size) {
         ImageIcon imageIcon = new ImageIcon(imagePath);
         Image image = imageIcon.getImage();
-        Image newImage = image.getScaledInstance(size, size,  java.awt.Image.SCALE_SMOOTH);
+        Image newImage = image.getScaledInstance(size, size, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newImage);
         return imageIcon;
     }
@@ -33,6 +33,7 @@ public class Utils {
 
         return new ImageIcon(bufferedImage);
     }
+
     private static String[] titles = {
             "Sir",
             "Lady",
@@ -46,7 +47,7 @@ public class Utils {
             "Duchess",
             "Prince",
             "Princess"
-        };
+    };
 
     private static String[] names = {
             "Arthur",
@@ -73,21 +74,22 @@ public class Utils {
             "Yvain",
             "Gaheris",
             "Agravain",
-        };
+    };
 
     private static String[] suffix = {
-        "the Brave",
-        "the Bold",
-        "the Valiant",
-        "the Wise",
-        "the Foolish",
-        "the Strong",
-        "the Weak",
-        "the Kind",
-        "the Just",
-        "the Unjust"
+            "the Brave",
+            "the Bold",
+            "the Valiant",
+            "the Wise",
+            "the Foolish",
+            "the Strong",
+            "the Weak",
+            "the Kind",
+            "the Just",
+            "the Unjust"
     };
-    protected static String randomName(){
+
+    protected static String randomName() {
         String title = titles[random.nextInt(titles.length)];
         String name = names[random.nextInt(names.length)];
         String nameSuffix = suffix[random.nextInt(suffix.length)];

@@ -3,13 +3,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
-public class RedAnthill extends Anthill{
+public class RedAnthill extends Anthill {
     private static String imagePath = "images/RedAnthill.png";
     private static ImageIcon vertexImage = Utils.getScaledImage(imagePath, size);
+
     protected RedAnthill(Point point, JLayeredPane layeredPane) {
         super(point, layeredPane);
     }
-    
+
     protected void draw() {
         JLabel vertexLabel = new JLabel(vertexImage);
         Point point = getPoint();

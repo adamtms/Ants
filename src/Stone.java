@@ -3,10 +3,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
-public class Stone extends Vertex{
+public class Stone extends Vertex {
     private static String imagePath = "images/Stone.png";
-    private static int size = 150; //just for visuals
+    private static int size = 150; // just for visuals
     private static ImageIcon vertexImage = Utils.getScaledImage(imagePath, size);
+
     Stone(Point point, JLayeredPane layeredPane) {
         super(point, layeredPane);
         setDifficulty(5);

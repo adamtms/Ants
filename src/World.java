@@ -19,7 +19,7 @@ public class World {
     private ArrayList<Vertex> vertices = new ArrayList<Vertex>();
     private ArrayList<Ant> ants = new ArrayList<Ant>();
     private JTextArea textArea;
-    
+
     public World() {
         frame = new JFrame("Ants simulation");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,19 +41,19 @@ public class World {
         textArea = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(textArea);
         textArea.setEnabled(false);
-        scrollPane.setBounds(width, addAntsPanelHeight, sidePanelWidth, 
-                            height - addAntsPanelHeight - addLarvaePanelHeight);
+        scrollPane.setBounds(width, addAntsPanelHeight, sidePanelWidth,
+                height - addAntsPanelHeight - addLarvaePanelHeight);
         layeredPane.add(scrollPane, Integer.valueOf(0));
 
         createAntButtons();
         createLarvaeButtons();
-    
+
         frame.add(layeredPane);
         frame.setVisible(true);
         frame.setResizable(false);
-        }
+    }
 
-    private void createAntButtons(){
+    private void createAntButtons() {
         JPanel buttonPanel = new JPanel(null);
         buttonPanel.setBounds(width, 0, sidePanelWidth, addAntsPanelHeight);
         JButton addWorkerButton = new PrettyButton("Worker", Color.BLUE);
@@ -66,44 +66,45 @@ public class World {
         addSoldierButton.addActionListener(e -> addSoldier());
         JButton addBlundererButton = new PrettyButton("Blunderer", Color.RED);
         addBlundererButton.addActionListener(e -> addBlunderer());
-        addWorkerButton.setBounds(0, 0, sidePanelWidth/2, addAntsPanelHeight/2);
-        addDroneButton.setBounds(sidePanelWidth/2, 0, sidePanelWidth/2, addAntsPanelHeight/2);
-        addCollectorButton.setBounds(0, addAntsPanelHeight/2, sidePanelWidth/3, addAntsPanelHeight/2);
-        addSoldierButton.setBounds(sidePanelWidth/3, addAntsPanelHeight/2, sidePanelWidth/3, addAntsPanelHeight/2);
-        addBlundererButton.setBounds(sidePanelWidth*2/3, addAntsPanelHeight/2, sidePanelWidth/3, addAntsPanelHeight/2);
+        addWorkerButton.setBounds(0, 0, sidePanelWidth / 2, addAntsPanelHeight / 2);
+        addDroneButton.setBounds(sidePanelWidth / 2, 0, sidePanelWidth / 2, addAntsPanelHeight / 2);
+        addCollectorButton.setBounds(0, addAntsPanelHeight / 2, sidePanelWidth / 3, addAntsPanelHeight / 2);
+        addSoldierButton.setBounds(sidePanelWidth / 3, addAntsPanelHeight / 2, sidePanelWidth / 3,
+                addAntsPanelHeight / 2);
+        addBlundererButton.setBounds(sidePanelWidth * 2 / 3, addAntsPanelHeight / 2, sidePanelWidth / 3,
+                addAntsPanelHeight / 2);
 
         buttonPanel.add(addWorkerButton);
         buttonPanel.add(addDroneButton);
         buttonPanel.add(addCollectorButton);
         buttonPanel.add(addSoldierButton);
         buttonPanel.add(addBlundererButton);
-        
+
         layeredPane.add(buttonPanel, Integer.valueOf(0));
     }
 
-    private void createLarvaeButtons(){
+    private void createLarvaeButtons() {
         Color color = Color.GREEN.darker();
         JPanel buttonPanel = new JPanel(null);
         buttonPanel.setBounds(width, height - addLarvaePanelHeight, sidePanelWidth, addLarvaePanelHeight);
         JButton add1LarvaeButton = new PrettyButton("1 Larvae", color);
         add1LarvaeButton.addActionListener(e -> initializeLarvaes(1));
-        add1LarvaeButton.setBounds(0, 0, sidePanelWidth/3, addLarvaePanelHeight - 28);
+        add1LarvaeButton.setBounds(0, 0, sidePanelWidth / 3, addLarvaePanelHeight - 28);
         buttonPanel.add(add1LarvaeButton);
         JButton add5LarvaeButton = new PrettyButton("5 Larvaes", color);
         add5LarvaeButton.addActionListener(e -> initializeLarvaes(5));
-        add5LarvaeButton.setBounds(sidePanelWidth/3, 0, sidePanelWidth/3, addLarvaePanelHeight - 28);
+        add5LarvaeButton.setBounds(sidePanelWidth / 3, 0, sidePanelWidth / 3, addLarvaePanelHeight - 28);
         buttonPanel.add(add5LarvaeButton);
         JButton add10LarvaeButton = new PrettyButton("10 Larvaes", color);
         add10LarvaeButton.addActionListener(e -> initializeLarvaes(10));
-        add10LarvaeButton.setBounds(sidePanelWidth*2/3, 0, sidePanelWidth/3, addLarvaePanelHeight - 28);
+        add10LarvaeButton.setBounds(sidePanelWidth * 2 / 3, 0, sidePanelWidth / 3, addLarvaePanelHeight - 28);
         buttonPanel.add(add10LarvaeButton);
         layeredPane.add(buttonPanel, Integer.valueOf(0));
     }
 
-
-    public void initializeAnthills(){
+    public void initializeAnthills() {
         int x = Utils.random.nextInt(Anthill.radius, width / 3 - Anthill.radius);
-        int y = Utils.random.nextInt(Anthill.radius, height  / 3 - Anthill.radius);
+        int y = Utils.random.nextInt(Anthill.radius, height / 3 - Anthill.radius);
         BlueAnthill blueAnthill = new BlueAnthill(new Point(x, y), layeredPane);
         RedAnthill redAnthill = new RedAnthill(new Point(width - x, height - y), layeredPane);
         this.blueAnthill = blueAnthill;
@@ -124,7 +125,7 @@ public class World {
         } else {
             vertex = new Vertex(point, layeredPane);
         }
-        
+
         return vertex;
     }
 
@@ -149,8 +150,7 @@ public class World {
             }
             if (intersects) {
                 i--;
-            }
-            else {
+            } else {
                 vertices.add(vertex);
                 vertex.draw();
                 for (Vertex neighbour : vertex.getNeighbours()) {
@@ -159,6 +159,7 @@ public class World {
             }
         }
     }
+
     public void initializeLarvaes(int numLarvaes) {
         for (int i = 0; i < numLarvaes; i++) {
             Vertex vertex = vertices.get(Utils.random.nextInt(2, vertices.size()));
@@ -167,7 +168,7 @@ public class World {
     }
 
     private void addWorker() {
-        synchronized(ants){
+        synchronized (ants) {
             Ant ant = new Worker(blueAnthill, layeredPane);
             ants.add(ant);
             ant.start();
@@ -175,7 +176,7 @@ public class World {
     }
 
     private void addDrone() {
-        synchronized(ants){
+        synchronized (ants) {
             Ant ant = new Drone(blueAnthill, layeredPane);
             ants.add(ant);
             ant.start();
@@ -199,7 +200,7 @@ public class World {
     }
 
     private void addCollector() {
-        synchronized(ants){
+        synchronized (ants) {
             Ant ant = new Collector(redAnthill, layeredPane);
             ants.add(ant);
             ant.start();
@@ -207,7 +208,7 @@ public class World {
     }
 
     private void addSoldier() {
-        synchronized(ants){
+        synchronized (ants) {
             Ant ant = new Soldier(redAnthill, layeredPane);
             ants.add(ant);
             ant.start();
@@ -215,7 +216,7 @@ public class World {
     }
 
     private void addBlunderer() {
-        synchronized(ants){
+        synchronized (ants) {
             Ant ant = new Blunderer(redAnthill, layeredPane);
             ants.add(ant);
             ant.start();
@@ -245,13 +246,13 @@ public class World {
         initializeBlueAnts(numAnts);
     }
 
-    public void run(){
+    public void run() {
         Vertex vertex;
         int withoutAdding = 0;
-        while(true){
+        while (true) {
             vertex = vertices.get(Utils.random.nextInt(2, vertices.size()));
             updateAnts();
-            if (withoutAdding == 100){
+            if (withoutAdding == 100) {
                 withoutAdding = 0;
                 vertex.addLarvae();
             }
@@ -268,7 +269,7 @@ public class World {
         String text = "";
         String tempText;
         ArrayList<Ant> antsToRemove = new ArrayList<>();
-        synchronized(ants) {
+        synchronized (ants) {
             for (Ant ant : ants) {
                 tempText = ant.getInfo();
                 if (tempText == null) {

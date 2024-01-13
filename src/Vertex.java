@@ -22,13 +22,13 @@ public class Vertex {
     }
 
     protected void addLarvae() {
-        synchronized(larvaeLock) {
+        synchronized (larvaeLock) {
             larvaes.add(new Larvae(randomPointInVertex(), layeredPane));
         }
     }
 
-    protected void putLarvae(Larvae larvae){
-        synchronized(larvaeLock) {
+    protected void putLarvae(Larvae larvae) {
+        synchronized (larvaeLock) {
             larvaes.add(larvae);
         }
         Point point = randomPointInVertex();
@@ -51,8 +51,8 @@ public class Vertex {
     protected Point randomPointInVertex() {
         double r = (radius - 20) * Math.sqrt(Math.random());
         double theta = Math.random() * 2 * Math.PI;
-        return new Point((int) (r * Math.cos(theta)) + point.x, 
-                        (int) (r * Math.sin(theta)) + point.y);
+        return new Point((int) (r * Math.cos(theta)) + point.x,
+                (int) (r * Math.sin(theta)) + point.y);
     }
 
     protected JLayeredPane getLayeredPane() {
@@ -87,13 +87,13 @@ public class Vertex {
     }
 
     protected void addAnt(Ant ant) {
-        synchronized(ants) {
+        synchronized (ants) {
             ants.add(ant);
         }
     }
 
     protected void removeAnt(Ant ant) {
-        synchronized(ants) {
+        synchronized (ants) {
             ants.remove(ant);
         }
     }
