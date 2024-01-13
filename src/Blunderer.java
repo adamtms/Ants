@@ -4,7 +4,7 @@ import javax.swing.JLabel;
 
 public class Blunderer extends Collector {
     private static String duncePath = "images/Dunce.png";
-    private static ImageIcon dunceImage = Utils.getScaledImage(duncePath, 30);
+    private static ImageIcon dunceImage = Utils.getScaledImage(Blunderer.class.getResource(duncePath), 30);
 
     Blunderer(RedAnthill anthill, JLayeredPane layeredPane) {
         super(anthill, layeredPane);

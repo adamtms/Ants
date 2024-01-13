@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 
 public abstract class Ant extends Thread {
     private static String imagePath = "images/RedAnt.png";
-    private static ImageIcon antImage = new ImageIcon(imagePath);
+    private static ImageIcon antImage = new ImageIcon(Ant.class.getResource(imagePath));
     private static int size = antImage.getIconWidth();
     private JPanel antPanel;
     private ArrayList<Vertex> path;

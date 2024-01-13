@@ -1,0 +1,5 @@
+#!/bin/bash
+
+javac -d bin -sourcepath src src/*.java
+jar cfm Ants.jar manifest.txt -C bin . images   
+java -jar Ants.jar

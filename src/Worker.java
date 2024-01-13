@@ -6,9 +6,9 @@ import javax.swing.JLayeredPane;
 
 public class Worker extends BlueAnt implements Attacking, TakingLarvae {
     private static String sackPath = "images/Sack.png";
-    private static ImageIcon sackImage = Utils.getScaledImage(sackPath, 20);
+    private static ImageIcon sackImage = Utils.getScaledImage(Worker.class.getResource(sackPath), 20);
     private static String pickaxePath = "images/Pickaxe.png";
-    private static ImageIcon pickaxeImage = Utils.getScaledImage(pickaxePath, 20);
+    private static ImageIcon pickaxeImage = Utils.getScaledImage(Worker.class.getResource(pickaxePath), 20);
     private ArrayList<Larvae> larvaes = new ArrayList<Larvae>();
 
     Worker(BlueAnthill anthill, JLayeredPane layeredPane) {

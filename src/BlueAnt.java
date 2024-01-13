@@ -4,7 +4,7 @@ import javax.swing.JLayeredPane;
 
 public abstract class BlueAnt extends Ant {
     private static String imagePath = "images/BlueAnt.png";
-    private static ImageIcon antImage = new ImageIcon(imagePath);;
+    private static ImageIcon antImage = new ImageIcon(BlueAnt.class.getResource(imagePath));
     private static int size = antImage.getIconWidth();
 
     protected BlueAnt(BlueAnthill anthill, JLayeredPane layeredPane) {

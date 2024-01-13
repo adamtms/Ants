@@ -6,10 +6,10 @@ import javax.swing.JLabel;
 
 public class Collector extends RedAnt implements TakingLarvae {
     private static String topHatPath = "images/TopHat.png";
-    private static ImageIcon topHatImage = Utils.getScaledImage(topHatPath, 15);
+    private static ImageIcon topHatImage = Utils.getScaledImage(Collector.class.getResource(topHatPath), 15);
     private ArrayList<Larvae> larvaes = new ArrayList<Larvae>();
     private static String stonePath = "images/RealityStone.png";
-    private static ImageIcon stoneImage = Utils.getScaledImage(stonePath, 20);
+    private static ImageIcon stoneImage = Utils.getScaledImage(Collector.class.getResource(stonePath), 20);
 
     Collector(RedAnthill anthill, JLayeredPane layeredPane) {
         super(anthill, layeredPane);

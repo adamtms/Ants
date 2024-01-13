@@ -6,7 +6,7 @@ import javax.swing.JLayeredPane;
 public class Stone extends Vertex {
     private static String imagePath = "images/Stone.png";
     private static int size = 150; // just for visuals
-    private static ImageIcon vertexImage = Utils.getScaledImage(imagePath, size);
+    private static ImageIcon vertexImage = Utils.getScaledImage(Stone.class.getResource(imagePath), size);
 
     Stone(Point point, JLayeredPane layeredPane) {
         super(point, layeredPane);

@@ -4,9 +4,9 @@ import javax.swing.JLayeredPane;
 
 public class Soldier extends RedAnt implements Attacking {
     private static String swordPath = "images/Sword.png";
-    private static ImageIcon swordImage = Utils.flipImageIcon(Utils.getScaledImage(swordPath, 18));
+    private static ImageIcon swordImage = Utils.flipImageIcon(Utils.getScaledImage(Soldier.class.getResource(swordPath), 18));
     private static String shieldPath = "images/Shield.png";
-    private static ImageIcon shieldImage = Utils.flipImageIcon(Utils.getScaledImage(shieldPath, 35));
+    private static ImageIcon shieldImage = Utils.flipImageIcon(Utils.getScaledImage(Soldier.class.getResource(shieldPath), 35));
 
     Soldier(RedAnthill anthill, JLayeredPane layeredPane) {
         super(anthill, layeredPane);

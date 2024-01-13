@@ -6,7 +6,7 @@ public class Vertex {
     private static String imagePath = "images/TransparentCircle.png";
     protected static int size = 120;
     protected static int radius = size / 2;
-    private static ImageIcon vertexImage = Utils.getScaledImage(imagePath, size + 20);
+    private static ImageIcon vertexImage = Utils.getScaledImage(Vertex.class.getResource(imagePath), size + 20);
     private Point point;
     private double difficulty;
     private ArrayList<Vertex> neighbours = new ArrayList<Vertex>();

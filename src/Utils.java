@@ -3,12 +3,13 @@ import java.awt.Image;
 import java.util.Random;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.net.URL;
 import java.awt.Graphics2D;
 
 public class Utils {
     protected static Random random = new Random();
 
-    protected static ImageIcon getScaledImage(String imagePath, int size) {
+    protected static ImageIcon getScaledImage(URL imagePath, int size) {
         ImageIcon imageIcon = new ImageIcon(imagePath);
         Image image = imageIcon.getImage();
         Image newImage = image.getScaledInstance(size, size, java.awt.Image.SCALE_SMOOTH);

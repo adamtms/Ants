@@ -28,15 +28,10 @@ public class World {
         layeredPane = new JLayeredPane();
         layeredPane.setPreferredSize(new Dimension(width + sidePanelWidth, height));
 
-        File imageFile = new File(imagePath);
-        if (imageFile.exists()) {
-            ImageIcon backgroundImage = new ImageIcon(imagePath);
-            JLabel backgroundLabel = new JLabel(backgroundImage);
-            backgroundLabel.setBounds(0, 0, width, height);
-            layeredPane.add(backgroundLabel, Integer.valueOf(-1));
-        } else {
-            System.out.println("Image file not found: " + imagePath);
-        }
+        ImageIcon backgroundImage = new ImageIcon(World.class.getResource(imagePath));
+        JLabel backgroundLabel = new JLabel(backgroundImage);
+        backgroundLabel.setBounds(0, 0, width, height);
+        layeredPane.add(backgroundLabel, Integer.valueOf(-1));
 
         textArea = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(textArea);

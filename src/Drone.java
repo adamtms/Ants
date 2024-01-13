@@ -4,7 +4,7 @@ import javax.swing.JLabel;
 
 public class Drone extends BlueAnt {
     static String duncePath = "images/Dunce.png";
-    static ImageIcon DunceImage = Utils.getScaledImage(duncePath, 25);
+    static ImageIcon DunceImage = Utils.getScaledImage(Drone.class.getResource(duncePath), 25);
 
     Drone(BlueAnthill anthill, JLayeredPane layeredPane) {
         super(anthill, layeredPane);
