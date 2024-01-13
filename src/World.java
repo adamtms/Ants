@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
-import java.awt.Color;
 
 public class World {
     private static String imagePath = "images/grass.jpeg";
@@ -42,7 +41,7 @@ public class World {
         // Set side panel
         textArea = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(textArea);
-        textArea.setEditable(false);
+        textArea.setEnabled(false);
         scrollPane.setBounds(width, sidePanelStartHeight, sidePanelWidth, height - sidePanelStartHeight);
         layeredPane.add(scrollPane, Integer.valueOf(0));
 
@@ -50,7 +49,7 @@ public class World {
     
         frame.add(layeredPane);
         frame.setVisible(true);
-
+        frame.setResizable(false);
         }
 
     private void createButtons(){
