@@ -248,18 +248,20 @@ public class World {
         String text = "";
         String tempText;
         ArrayList<Ant> antsToRemove = new ArrayList<>();
-        for (Ant ant : ants) {
-            tempText = ant.getInfo();
-            if (tempText == null) {
-                antsToRemove.add(ant);
-                continue;
+        synchronized(ants) {
+            for (Ant ant : ants) {
+                tempText = ant.getInfo();
+                if (tempText == null) {
+                    antsToRemove.add(ant);
+                    continue;
+                }
+                text += tempText;
+                text += "\n------------------------\n"; // Pretty divider
             }
-            text += tempText;
-            text += "\n------------------------\n"; // Pretty divider
-        }
-        textArea.setText(text);
-        for (Ant ant : antsToRemove) {
-            ants.remove(ant);
+            textArea.setText(text);
+            for (Ant ant : antsToRemove) {
+                ants.remove(ant);
+            }
         }
     }
 }
