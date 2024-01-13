@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.util.ArrayList;
 
 public class World {
@@ -43,6 +42,7 @@ public class World {
         createAntButtons();
         createLarvaeButtons();
 
+        initializeAnthills();
         frame.add(layeredPane);
         frame.setVisible(true);
         frame.setResizable(false);
